@@ -24,9 +24,18 @@ public class ArtistServiceImpl implements ArtistService{
 
 	protected void validade (ArtistEntity entity) throws Exception{
 		if (entity.getName() == null || entity.getName().isEmpty())
-			throw new Exception("Campo nome inválido");
-		if (repository.existsByName(entity.getName()))
-			throw new Exception("Já existe registro com esse nome");
+			throw new Exception("Campo nome Inválido");
+		if (entity.getUuid() == null) {
+			if(repository.existsByName(entity.getName()))
+				throw new Exception("Não existe registro com esse nome!!");
+		} else {
+			if (!repository.existsById(entity.getUuid()))
+				throw new Exception("Não existe registro com esse UUID");
+			if (repository.existsByNameAndUuidNot(entity.getName(), entity.getUuid()))
+				throw new Exception("Já existe registro com esse nome!");
+		}
+		
+		
 	}
 	
 	@Override

@@ -16,7 +16,7 @@ public interface ArtistRepository extends JpaRepository<ArtistEntity, UUID> {
 	
 	Boolean existsByName(String name);
 	
-	
+	Boolean existsByNameAndUuidNot(String name, UUID uuid);
 	
 	Page<List<ArtistEntity>> findByNameContainingIgnoreCase(String name, Pageable pageable);
 	
