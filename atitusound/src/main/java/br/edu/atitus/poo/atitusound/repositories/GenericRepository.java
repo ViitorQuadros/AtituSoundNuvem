@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
-import br.edu.atitus.poo.atitusound.entities.ArtistEntity;
 import br.edu.atitus.poo.atitusound.entities.GenericEntity;
 
 @NoRepositoryBean
@@ -18,7 +17,7 @@ Boolean existsByName(String name);
 	
 	Boolean existsByNameAndUuidNot(String name, UUID uuid);
 	
-	Page<List<ArtistEntity>> findByNameContainingIgnoreCase(String name, Pageable pageable);
+	Page<List<TEntidade>> findByNameContainingIgnoreCase(String name, Pageable pageable);
 	
 	
 }
