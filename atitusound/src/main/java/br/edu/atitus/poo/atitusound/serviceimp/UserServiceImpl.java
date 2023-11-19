@@ -25,5 +25,22 @@ public class UserServiceImpl implements UserService{
 		return repository;
 	}
 
+
+	@Override
+	public void validade(UserEntity entity) throws Exception {
+		UserService.super.validade(entity);
+		if(entity.getUsername() == null || entity.getUsername().isEmpty())
+			throw new Exception("Campo Username Inválido");
+		if(entity.getUuid() == null) {
+			if(repository.existsByUsername(entity.getUsername()))
+				throw new Exception ("Já existe um usuário com esse UserName");
+		} else {
+			if(repository.existsByNameAndUuidNot(entity.getUsername(), entity.getUuid()))
+				throw new Exception ("Já existe um usuário com esse UserName");
+		}
+	}
+
+	
+	
 	
 }
