@@ -1,5 +1,6 @@
 package br.edu.atitus.poo.atitusound.serviceimp;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.edu.atitus.poo.atitusound.entities.UserEntity;
@@ -12,11 +13,13 @@ public class UserServiceImpl implements UserService{
 
 	
 	private final UserRepository repository;
+	private final PasswordEncoder passwordEncoder;
 	
-	
-	public UserServiceImpl(UserRepository repository) {
+	public UserServiceImpl(UserRepository repository, PasswordEncoder passwordEncoder) {
 		super();
 		this.repository = repository;
+		this.passwordEncoder = passwordEncoder;
+		
 	}
 
 
@@ -38,6 +41,8 @@ public class UserServiceImpl implements UserService{
 			if(repository.existsByNameAndUuidNot(entity.getUsername(), entity.getUuid()))
 				throw new Exception ("Já existe um usuário com esse UserName");
 		}
+		
+		entity.setPassword(passwordEncoder.encode(entity.getPassword()));
 	}
 
 	
