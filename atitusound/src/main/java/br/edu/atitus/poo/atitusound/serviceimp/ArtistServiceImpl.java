@@ -51,16 +51,39 @@ public class ArtistServiceImpl implements ArtistService{
 		return repository.findAll();
 	}
 
+	
+	
+	protected void validadeFindByName(String name, Pageable pageable) throws Exception{
+		
+	}
 	@Override
 	public Page<List<ArtistEntity>> findByNameContainingIgnoreCase(String name, Pageable pageable) throws Exception {
-		
+		validadeFindByName(name, pageable);
 		return repository.findByNameContainingIgnoreCase(name, pageable);
 	}
 
+	
+	protected void validadeFindById(UUID uuid) throws Exception{
+		
+	}
+	
 	@Override
 	public Optional<ArtistEntity> findById(UUID uuid) throws Exception {
-		
+		validadeFindById(uuid);
 		return repository.findById(uuid);
+	}
+
+	
+	protected void validateDeleteById(UUID uuid) throws Exception{
+		if(!repository.existsById(uuid))
+			throw new Exception("Não existe registro com esse UUID");
+	}
+	
+	
+	@Override
+	public void deleteById(UUID uuid) throws Exception{
+		repository.deleteById(uuid);
+		
 	}
 
 }
