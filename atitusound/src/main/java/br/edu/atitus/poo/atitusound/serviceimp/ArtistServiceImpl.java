@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.edu.atitus.poo.atitusound.entities.ArtistEntity;
 import br.edu.atitus.poo.atitusound.repositories.ArtistRepository;
+import br.edu.atitus.poo.atitusound.repositories.GenericRepository;
 import br.edu.atitus.poo.atitusound.service.ArtistService;
 
 @Service
@@ -20,6 +21,11 @@ public class ArtistServiceImpl implements ArtistService{
 	public ArtistServiceImpl(ArtistRepository repository) {
 		super();
 		this.repository = repository;
+	}
+
+	@Override
+	public GenericRepository<ArtistEntity> getRepository() {
+		return repository;
 	}
 
 	
