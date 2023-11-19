@@ -14,11 +14,11 @@ import br.edu.atitus.poo.atitusound.entities.GenericEntity;
 @NoRepositoryBean
 public interface GenericRepository <TEntidade extends GenericEntity> extends JpaRepository<TEntidade, UUID>{
 	
-Boolean existsByName(String name);
+	Boolean existsByName(String name);
 	
 	Boolean existsByNameAndUuidNot(String name, UUID uuid);
 	
-	Page<List<ArtistEntity>> findByNameContainingIgnoreCase(String name, Pageable pageable);
+	Page<List<TEntidade>> findByNameContainingIgnoreCase(String name, Pageable pageable);
 	
 	
 }

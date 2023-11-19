@@ -9,15 +9,7 @@ import org.springframework.data.domain.Pageable;
 
 import br.edu.atitus.poo.atitusound.entities.ArtistEntity;
 
-public interface ArtistService {
+public interface ArtistService extends GenericService<ArtistEntity> {
 	
-	ArtistEntity save(ArtistEntity entity) throws Exception;
 	
-	List<ArtistEntity> findAll() throws Exception;
-	
-	Page<List<ArtistEntity>> findByNameContainingIgnoreCase(String name, Pageable pageable) throws Exception;
-
-	Optional<ArtistEntity> findById(UUID uuid) throws Exception;
-	
-	void deleteById(UUID uuid) throws Exception;
 }
