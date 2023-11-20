@@ -22,6 +22,19 @@ import br.edu.atitus.poo.atitusound.dtos.ArtistDTO;
 import br.edu.atitus.poo.atitusound.entities.ArtistEntity;
 import br.edu.atitus.poo.atitusound.entities.GenericEntity;
 import br.edu.atitus.poo.atitusound.service.GenericService;
+import io.swagger.v3.oas.annotations.headers.Header;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
+@ApiResponses(value = {
+		@ApiResponse(responseCode = "400", description = "ERRO DE VALIDAÇÃO OU REQUISIÇÃO INVÁLIDA",
+				content = @Content, headers = @Header(name = "error", description = "Descrição do erro", schema = @Schema(implementation = String.class))),
+		@ApiResponse(responseCode = "401", description = "UNAUTHORIZED", content = @Content),
+		@ApiResponse(responseCode = "403", description = "FORBIDDEN", content = @Content)
+})
+
 
 public abstract class GenericController<TEntidade extends GenericEntity, TDTO> {
 
@@ -30,6 +43,7 @@ public abstract class GenericController<TEntidade extends GenericEntity, TDTO> {
 	protected abstract TEntidade convertDTO2Entity(TDTO dto);
 
 	@PostMapping
+	@ApiResponse(responseCode = "201", description = "REGISTRO CRIADO COM SUCESSO")
 	public ResponseEntity<TEntidade> postSave(@RequestBody TDTO dto) {
 		TEntidade entity = convertDTO2Entity(dto);
 		try {
@@ -41,6 +55,7 @@ public abstract class GenericController<TEntidade extends GenericEntity, TDTO> {
 	}
 
 	@GetMapping
+	@ApiResponse(responseCode = "200", description = "Ok")
 	public ResponseEntity<Page<List<TEntidade>>> getFind(
 			@PageableDefault(page = 0, size = 10, sort = "name", direction = Direction.ASC) Pageable pageable,
 			@RequestParam String name) {
